@@ -1,0 +1,8 @@
+.layoutBackground{
+    height:625px;
+    background-image: url("./banner.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%; 
+    filter:brightness(0.8);
+
+}

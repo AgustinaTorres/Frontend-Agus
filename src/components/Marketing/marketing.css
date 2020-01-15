@@ -1,0 +1,15 @@
+.marketing{
+    position: fixed;
+    right: 0px;
+    top:90px;
+}
+
+.marketing img{
+    filter:brightness(0.7);
+    opacity: 0.5;
+}
+
+.marketing img:hover{
+    filter:brightness(1);
+    opacity: 1;
+}

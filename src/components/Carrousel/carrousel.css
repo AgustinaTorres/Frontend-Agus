@@ -1,0 +1,11 @@
+.alice-carousel__dots {
+    display: none;
+}
+
+.alice-carousel__prev-btn {
+    text-align: center;
+}
+
+/*.alice-carousel__wrapper {
+    height:{this.state.showStore ? "100%" : "50%" }
+}*/
