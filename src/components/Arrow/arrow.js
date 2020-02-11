@@ -2,12 +2,20 @@ import React from 'react';
 import './arrow.css';
 import { Icon } from 'semantic-ui-react'
 
-const Arrow = () => {
-    return(
-            <div className="arrow">
-                <a href="#top"><Icon disabled name='angle up' size='huge'/></a>
-            </div>
-    )
-}
+class Arrow extends React.Component{
 
+    scrollUp = () => {
+        window.scrollTo(0, 0)
+        }
+
+    render() {
+        return (
+            <div className="arrow">
+                <button class="ui circular tiny icon button" onClick={this.scrollUp}><Icon disabled name='angle up' size='huge' className="center"/></button>
+            </div>
+        )
+    }}
+
+  
 export default Arrow;
+

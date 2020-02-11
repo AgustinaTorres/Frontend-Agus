@@ -17,7 +17,7 @@ class SearchButton extends React.Component{
     return alert("Usted busco: " + this.props.searchedValue + ". Resutados: " + this.props.searchedArray )
   }
   
-  
+
   render(){
  
     return(

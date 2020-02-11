@@ -7,17 +7,20 @@ import {
   Radio,
   Select,
   TextArea,
-  Message
+  Message,
+  Icon
 } from 'semantic-ui-react';
 import {
     BrowserRouter as  Router,
-    //Switch,
-    //Route,
+    Switch,
+    Route,
     Link
   } from "react-router-dom";
   import { Redirect } from 'react-router-dom';
   import {connect} from 'react-redux';
   import * as actionCreators from '../../store/actions/actions';
+  import { Button, Dimmer, Header } from 'semantic-ui-react'
+  
 
 const options = [
   { key: 'ter', text: 'Terapia', value: 'terapia' },
@@ -46,6 +49,7 @@ class FormExampleFieldControl extends Component {
           email: '',
           value:'',
           motivoVisita:'',
+          otroMotivo:'',
           comentario:'',
           termYcond:'',
 
@@ -56,112 +60,140 @@ class FormExampleFieldControl extends Component {
           phoneError:false,
           emailError:false,
           valueError:false,
+          motivoVisitaError:false,
+          otroMotivoError:false,
           termYcondError:false,
 
           formError:false,
           complete: false,
-
         }
     }
-         submitForm = ()=> {
-            
-            let error = false;
-        
-            if (this.state.name === '') {
-              this.setState({nameError: true})
-              error = true
-            } else {
-              this.setState({nameError: false})
-              error = false
-            }
+    
+  submitForm = ()=> {
+      
+      let error = false;
+  
+      if (this.state.name === '') {
+        this.setState({nameError: true})
+         error = true
+      } else {
+        this.setState({nameError: false})
+        error = false
+      }
 
-            if (this.state.lastName === '') {
-              this.setState({lastNameError: true})
-              error = true
-            } else {
-              this.setState({lastNameError: false})
-              error = false
-            }
+      if (this.state.lastName === '') {
+        this.setState({lastNameError: true})
+        error = true
+      } else {
+        this.setState({lastNameError: false})
+        error = false
+      }
 
-            if (this.state.birthday === '') {
-              this.setState({birthdayError: true})
-              error = true
-            } else {
-              this.setState({birthdayError: false})
-              error = false
-            }
-
-            
-            if (this.state.email === '') {
-                this.setState({emailError: true})
-                error = true
-              } else {
-                this.setState({emailError: false})
-                error = false
-              }
-
-            if (this.state.areaCode === '') {
-              this.setState({areaCodeError: true})
-              error = true
-            } else {
-              this.setState({areaCodeError: false})
-              error = false
-            }
-
-            
-            if (this.state.phone === '') {
-                this.setState({phoneError: true})
-                error = true
-              } else {
-                this.setState({phoneError: false})
-                error = false
-              }
-
-              
-            if (this.state.value === '') {
-              this.setState({valueError: true})
-              error = true
-            } else {
-              this.setState({valueError: false})
-              error = false
-            }
-            
-            if (this.state.value === '') {
-              this.setState({valueError: true})
-              error = true
-            } else {
-              this.setState({valueError: false})
-              error = false
-            }
-
-            if (this.state.termYcond === '') {
-              this.setState({termYcondError: true})
-              error = true
-            } else {
-              this.setState({termYcondError: false})
-              error = false
-            }
-            
-            if (error) {
-              this.setState({formError: true})
-              alert('Complete los campos obligatorios')
-              return
-            } else {
-              this.setState({formError: false})
-              this.setState({complete: true})
-              this.props.onSaveDataCostumer(this.state)
-              this.props.onGenerateKey("correcto")
-            }
-
+      if (this.state.birthday === '') {
+        this.setState({birthdayError: true})
+        error = true
+      } else {
+        this.setState({birthdayError: false})
+        error = false
+      }
+      
+      if (this.state.email === '') {
+          this.setState({emailError: true})
+          error = true
+        } else {
+          this.setState({emailError: false})
+          error = false
         }
 
-        handleChange = (e, { value }) => this.setState({ value })
-        handleChange2 = (e, { termYcond }) => this.setState({ termYcond })
+      if (this.state.areaCode === '') {
+        this.setState({areaCodeError: true})
+        error = true
+      } else {
+        this.setState({areaCodeError: false})
+        error = false
+      }
+      
+      if (this.state.phone === '') {
+          this.setState({phoneError: true})
+          error = true
+        } else {
+          this.setState({phoneError: false})
+          error = false
+        }
+ 
+      if (this.state.value === '') {
+        this.setState({valueError: true})
+        error = true
+      } else {
+        this.setState({valueError: false})
+        error = false
+      }
+
+      if (this.state.motivoVisita === '') {
+        this.setState({motivoVisitaError: true})
+        error = true
+      } else {
+        this.setState({motivoVisitaError: false})
+        error = false
+      }
+
+      if (this.state.otroMotivo === '') {
+        this.setState({otroMotivoError: true})
+        error = true
+      } else {
+        this.setState({otroMotivoError: false})
+        error = false
+      }
+      
+      if (this.state.termYcond === '') {
+        this.setState({termYcondError: true})
+        error = true
+      } else {
+        this.setState({termYcondError: false})
+        error = false
+      }
+
+      console.log("horaaaaaa" , error)
+      console.log("nameerrroooooor", this.state.nameError)
+      
+      // if (this.state.nameError === false && 
+      //    this.state.lastNameError=== false && 
+      //    this.state.areaCodeError=== false && 
+      //    this.state.phoneError=== false &&
+      //    this.state.emailError=== false &&
+      //    this.state.valueError=== false && 
+      //    this.state.motivoVisitaError=== false &&
+      //    this.state.termYcondError=== false){
+
+      //   error = false
+
+      // }else{
+      //     error=true
+      // }
+
+      console.log("digamooooo", error)
+      
+      if (error) {
+        this.setState({formError: true})
+        alert('Complete los campos obligatorios')
+        return
+      } else {
+        this.setState({formError: false})
+        this.setState({complete: true})
+        this.props.onSaveDataCostumer(this.state)
+        this.props.onGenerateKey("correcto")
+      }
+
+  }
+
+  handleChange = (e, { value }) => this.setState({ value })
+  handleChange2 = (e, { termYcond }) => this.setState({ termYcond })
+
 
 
   render() {
     return (
-        <div>
+        <div className="mb-3">
             <div className="mt-5 mb-3 pt-3">
                 <h2 className="text-justify">Reserva de Turnos</h2>
             </div>
@@ -174,6 +206,7 @@ class FormExampleFieldControl extends Component {
             />
 
         <Form error={this.state.formError}>
+
             <Form.Group widths='equal'>
               <Form.Field
                   control={Input}
@@ -181,6 +214,8 @@ class FormExampleFieldControl extends Component {
                   placeholder='Ej: Agustina'
                   onChange={(e) => this.setState({name: e.target.value})}
                   error={this.state.nameError}
+                  
+                
               />
               <Form.Field
                   control={Input}
@@ -205,6 +240,7 @@ class FormExampleFieldControl extends Component {
                   placeholder='Ej: +54-381'
                   onChange={(e) => this.setState({areaCode: e.target.value})}
                   error={this.state.areaCodeError}
+                  
               />
               <Form.Field
                   control={Input}
@@ -253,7 +289,21 @@ class FormExampleFieldControl extends Component {
                 selection
                 placeholder='Seleccione la problemática/motivo de visita' 
                 onChange={(e,data) => this.setState({motivoVisita: data.value})} 
+                error={this.state.motivoVisitaError}
             />
+
+            {this.state.motivoVisita === 'otro' ? 
+            <Form.Field
+            control={TextArea}
+            label='Otro motivo'
+            placeholder='Cual es su otro motivo de visita?'
+            onChange={(e) => this.setState({otroMotivo: e.target.value})}
+            error={this.state.otroMotivoError}
+          /> :  null
+          
+          }
+            
+            
 
             <Form.Field
             control={TextArea}
@@ -273,12 +323,28 @@ class FormExampleFieldControl extends Component {
 
             {!this.state.complete ?
                 <div class="ui buttons">
-                  <Link to="/page2"><button class="ui button">Volver</button></Link>
+                  <Link to="/page2"><button className="mr-2 ui button">Volver</button></Link>
                   <Link> <button class="ui positive button" onClick={this.submitForm}>Siguiente</button></Link>
                 </div>
                 :  
                 <div>
-                  <Redirect to="/page4"></Redirect>
+
+                <Dimmer active={true} onClickOutside={this.handleClose} page>
+                  {/* <Message icon>
+                    <Icon name='circle notched' loading />
+                    <Message.Content>
+                      <Message.Header>Carga exitosa!</Message.Header>
+                      Te enviaremos un correo con tu usuario y contraseña para entrara a la APP
+                    </Message.Content>
+                  </Message> */}
+                    <Header as='h2' icon inverted>
+                      <Icon name='check' />
+                      Carga exitosa!
+                <Header.Subheader>Te enviaremos a: {this.state.email} los datos de Usuario para entrar a la APP</Header.Subheader>
+                     <Link to="/page6"> <button className=" mt-5 ui button">OK</button></Link>
+                    </Header>
+                </Dimmer>
+                
                 </div>
             }
 
@@ -287,8 +353,6 @@ class FormExampleFieldControl extends Component {
     )
   }
 }
-
-
 
 const mapDispatchToProps = dispatch => {
   return{

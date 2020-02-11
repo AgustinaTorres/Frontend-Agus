@@ -4,49 +4,51 @@ import Axios from "axios";
 export const FETCH_DATA='FETCH_DATA';
 export const FETCH_DATA2='FETCH_DATA2';
 export const SAVE_DATA='SAVE_DATA';
-export const SEARCH='SEARCH';
-export const SEARCH2='SEARCH2';
 export const SAVE_SELECTEDDOCTOR='SAVE_SELECTEDDOCTOR';
 export const SAVE_DATACUSTOMER='SAVE_DATACUSTOMER';
 export const GENERATE_KEY='GENERATE_KEY';
 
-export const saveData =(data) => {
+export const saveData =(results) => {
     return {
         type:SAVE_DATA,
-        data:data
+        data:results,
     };
 }
 
-export const fetchData2 =(data) => {
+export const fetchData2 =(data, info) => {
     return (dispatch) => {
-        const data2 = data.map((item) => {
-            let slots;
-            let dataWihSlots = [];            
+        let results = []
+        let filter = []
+        console.log("holaaaaaaaaaaaaaaaaa", info)
 
+        const data2 = data.map((item) => {
+            let slots, itemWithSlot = {...item, calendar: []} 
             Axios.request({
-                url: 'http://ec2-54-80-4-95.compute-1.amazonaws.com:8890/api/v1/providers/24/availables/slots',
+                url: `http://ec2-54-83-180-156.compute-1.amazonaws.com:8890/api/v1/providers/ ${item.provider_id} /availables/slots`,
                 method: "GET",
                 params: {},
                 headers: {Authorization: authHeader()}
             })
             .then(res => {
                 slots = res.data.data.slots;
-                console.log("AAAAAAAAAAAAAAAAAAAAAAAAA", slots);
-            
-                //item.calendar = slots;
-                const itemWithSlot = {...item, calendar: slots};
-                console.log("CCCCCCCCCCCCCCCCCCC",itemWithSlot)
-                dataWihSlots.push(itemWithSlot);    
+                itemWithSlot.calendar=slots;
                             
             }).catch(err => console.log("BBBBBBBBBBBBBBBBb", err));
 
-            return dataWihSlots;
+            return itemWithSlot;
         })
-        console.log("dataaaaaaaaaaaaaaaaaaaaaaaaa",data2)
-        dispatch (saveData(data2))
+
+        console.log("dataaaaaaaaaaaa", data2)
+        console.log("infoooooooooo", info)
+
+        filter = data2.filter((item) => item.first_name === info)
+
+        filter.length > 0 ? results = filter : results = data2
+
+         dispatch (saveData(results))
     }}
 
-export const fetchData =() => {
+export const fetchData =(info) => {
     return (dispatch) => {
 
         const requestOptions = {
@@ -54,30 +56,15 @@ export const fetchData =() => {
             headers: authHeader()
         };
 
-        fetch('http://ec2-54-80-4-95.compute-1.amazonaws.com:8890/api/v1/providers', requestOptions)
+        fetch('http://ec2-54-83-180-156.compute-1.amazonaws.com:8890/api/v1/providers', requestOptions)
         .then(res => res.json())
         .then(res => {
             if(res.error) {
                 throw(res.error);
             }
-            dispatch (fetchData2(res.data));
+            dispatch (fetchData2(res.data, info));
         })
     }}
-
-export const search =(info) => {
-    return {
-        type:SEARCH,
-        info:info
- };
-}
-
-export const searched2 =(results) => {
-    return {
-        type:SEARCH2,
-        results:results
- };
-}
-
 
 export const selectDoctor =(dataDoctor,day,hour) => {
     return {
@@ -85,7 +72,6 @@ export const selectDoctor =(dataDoctor,day,hour) => {
         dataDoctor:dataDoctor,
         day:day,
         hour:hour
-
  };
 }
 
@@ -102,6 +88,9 @@ export const generateKey =(llave) => {
         llave:llave,
  };
 }
+
+
+
 
 
 

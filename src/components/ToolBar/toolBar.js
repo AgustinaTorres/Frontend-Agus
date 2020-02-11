@@ -2,9 +2,9 @@ import React from 'react';
 import './toolBar.css';
 import sana from './sana.jpeg';
 import {
-  BrowserRouter as //Router,
-  //Switch,
-  //Route,
+  BrowserRouter as Router,
+  Switch,
+  Route,
   Link
 } from "react-router-dom";
 
@@ -29,13 +29,13 @@ const ToolBar = () => {
                    <a className="nav-link " href="#">Inicio<span className="sr-only">(current)</span></a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="#">Servicio</a>
+                  <a className="nav-link " href="#">Servicio</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="#">Nosotros</a>
+                  <a className="nav-link " href="#">Nosotros</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="#">Cliente</a>
+                  <a className="nav-link " href="#">Cliente</a>
                   </li>
                 </ul>
 
@@ -45,7 +45,7 @@ const ToolBar = () => {
                 <a href="https://wa.me//34622854287">+34-622854287 </a>
                 </div>
 
-                <button className="ui button">Soy Profesional</button>
+                <button className="ui button standard">Soy Profesional?</button>
 
               </div>
 
@@ -55,5 +55,7 @@ const ToolBar = () => {
        
         
     )}
+
+    
 
 export default ToolBar;

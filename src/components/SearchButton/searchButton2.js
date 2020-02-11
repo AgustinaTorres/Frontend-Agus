@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Search, Grid, Header, Segment 
-} from 'semantic-ui-react'
+import { Search, Grid, Header, Segment } from 'semantic-ui-react'
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actions';
 import {
@@ -10,6 +9,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import './searchButton.css';
 
 const initialState = { isLoading: false, results: [], value: '' }
 
@@ -34,14 +34,13 @@ const initialState = { isLoading: false, results: [], value: '' }
     }, 300)
   }
 
-
   render() {
     const { isLoading, value, results } = this.state
     return (
       <Grid className="justify-content-center">
         <Grid.Column width={6}>
           <Search
-            placeholder="Buscar"
+            placeholder="Que buscas?"
             loading={isLoading}
             onResultSelect={this.handleResultSelect}
             onSearchChange={_.debounce(this.handleSearchChange, 500, {
@@ -50,14 +49,16 @@ const initialState = { isLoading: false, results: [], value: '' }
             results={results}
             value={value}
             {...this.props}
-          />
-          
-           <Link to="/page2"><button onClick={() => this.props.onSearch2(this.state.results)} className="mt-5 ui button">{this.state.value === "" ? 'Nuestros Profesionales':'Buscar resultados'} </button></Link>
-          {/* {this.state.results ? 
-              this.state.results.map((result) => <li>{result.first_name}</li>)
-            : null}  */}
-        </Grid.Column>
 
+          />
+
+          {this.state.value === "" ? <Link to="/page2"><button onClick={() => this.props.onSearch2(this.state.results)} className="mt-3 ui grey  button">Nuestros Profesionales</button></Link>
+
+          : (this.state.results.length === 0 ? null : <Link to="/page2"><button onClick={() => this.props.onSearch2(this.state.results)} className="mt-3 ui button">Buscar</button></Link>  )
+              
+          }
+         
+        </Grid.Column>
         {/* <Grid.Column width={10}>
           <Segment>
             <Header>State</Header>

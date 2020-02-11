@@ -7,7 +7,7 @@ const DoctorCard = (props) => {
     return(
         <div className="ui cards row " >
             <DoctorData doctor={props.doctor}/>
-            <Carrousel calendar = {props.doctor.calendar} doctor={props.doctor} />
+            <Carrousel doctor={props.doctor} />
         </div>
     )
 }

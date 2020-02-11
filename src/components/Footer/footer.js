@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
     return(
-    <div className="container-fluid bg-light mt-5 border">
+    <div className="container-fluid bg-light  border">
     <div className="container">
         <div className="row justify-content-between pt-5 pb-5">
             <div className="column col-md-3 text-justify">

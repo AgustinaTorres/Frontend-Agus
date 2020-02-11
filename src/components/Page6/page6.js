@@ -7,18 +7,22 @@ import { connect } from 'react-redux';
 import { Message } from 'semantic-ui-react'
 import { Button } from 'semantic-ui-react'
 import ButtonExampleCircularSocial from '../SocialMedia/socialMedia2';
-import { Icon } from 'semantic-ui-react'
-import {  Modal } from 'semantic-ui-react'
-
+import { Icon, Image } from 'semantic-ui-react'
+import {  Modal, Dimmer, Header } from 'semantic-ui-react'
 
 
 class Page6 extends React.Component{
+    state = {}
 
+    handleOpen = () => this.setState({ active: true })
+    handleClose = () => this.setState({ active: false })
+   
     componentDidMount() {
         window.scrollTo(0, 0)
       }
       
     render(){
+        const { active } = this.state
         return(
             
             <div className="bg-light" id="top">
@@ -26,11 +30,11 @@ class Page6 extends React.Component{
                 <ToolBar/>
                 <ButtonExampleCircularSocial/>
                 
-                <div className= "container col-md-7">
+                <div className= "container col-md-7 mb-5">
                     <div className=" column text-justify ">
-                        <h1>Gracias{this.props.dataCustomer.name}!</h1>
-                        <h3><Icon disabled size="large" name='check circle outline' />Tu pago fue realizado con exito y tu cita comunicada al Profesional a cargo</h3> 
-                        <Message className="bg-white" size='tiny'>
+                        <h1>Gracias {this.props.dataCustomer.name}!</h1>
+                        <h3><Icon disabled size="large" name='check circle outline' />Tu reserva fue realizada con exito y tu cita comunicada al Profesional a cargo</h3> 
+                        <Message positive className="mb-5 bg-white" size='small'>
                             <div className="container mt-2" >
                                 <div className = "row align-items-center ">
                                     <div className="col-md-6 text-justify"><Message.Header>Paciente</Message.Header></div>
@@ -54,33 +58,49 @@ class Page6 extends React.Component{
                                 <hr></hr>
                                 <div className = "row align-items-center ">
                                     <div className="col-md-6 text-justify"><Message.Header> Precio Cita</Message.Header></div>
-                                    <div className="col-md-6 pr-0"><p >{this.props.selectedDoctor.price}</p></div>
+                                    <div className="col-md-6 pr-0"><p > <Icon disabled name='euro sign' />{this.props.selectedDoctor.price}</p></div>
                                 </div>
                                 <hr></hr>
                             </div>
                         </Message>
-
-                        <Button.Group basic size='small'>
-                            <Button icon='file' />
-                            <Button icon='save' />
-                            <Button icon='upload' />
-                            <Button icon='download' />
-                        </Button.Group>
-                         <Button negative className="ml-3">Cancelar tu Cita</Button>
-
-                        
-                         <Message success className=" col-md-6 justify-content-center " size='tiny'>
-                             <h4>Guardate esta informacion en el bolsillo</h4>
-                             <p>Con nuestra app GRATIS no necesitas datos, WiFi, ni impresora.</p>
-                             < PasswordModal />
-                             <Button positive>Descargar APP</Button>
-                             <p>Disponible para iPhone, iPad y Android</p>
+                        <div className="row justify-content-center mb-4">
                             
-                             
-                         </Message>
+                            <div className="mr-5">
+                            <Icon.Group size='huge'>
+                                <Icon  size='big' name='circle outline' />
+                                <Icon  name='google play' />
+                            </Icon.Group>
+                            </div>
+                            <div>
+                            <Icon.Group size='huge'>
+                                <Icon  size='big' name='circle outline' />
+                                <Icon  name='app store ios' />
+                            </Icon.Group>
+                            </div>
+                        </div>
                          
-                        <h3>Condiciones Cancelacion</h3>
+                        <h3 >Condiciones Cancelacion</h3>
                         <p>Podrás cancelar la reserva de forma gratuita hasta 1 día antes de la fecha de llegada. Pagarás el precio total de la reserva si cancelas el día antes de la fecha de llegada.</p>
+                        <div>
+                            <Button negative
+                                content='Show'
+                                onClick={this.handleOpen}
+                                >Cancelar tu Cita</Button>
+                            
+                            <Dimmer active={active} onClickOutside={this.handleClose} page>
+                            
+                                <Header as='h2' icon inverted>
+                                    <Icon name='warning sign' />
+                                    Alerta!
+                                    <Header.Subheader>Desea realmente cancelar su reserva?</Header.Subheader>
+                                    <div className="row justify-content-center mt-3">
+                                        <Button  size='tiny' className="mr-3"onClick={this.handleClose}><Icon className="ml-2" disabled name='close'/>Cerrar</Button>
+                                        <Button size='tiny' negative><Icon className="ml-2" disabled name='check'/> CANCELAR</Button>
+                                    </div>
+                                </Header>
+                            </Dimmer>
+                        </div>
+
                         <h3>Informacion Adicional</h3>
                         <p>El establecimiento no acepta pagos con tarjeta de crédito o débito. Solo se aceptan pagos en efectivo.
                          Para reservas de grupo y habitaciones privadas, el pago se debe efectuar mediante transferencia bancaria antes de la fecha de llegada. Una vez realizada la reserva, el establecimiento se pondrá en contacto con los huéspedes para darles la información necesaria.

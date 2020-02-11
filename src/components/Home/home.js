@@ -1,35 +1,26 @@
 import React from 'react';
-//import NavButton from '../NavButton/navButton';
 import './home.css';
-import SearchButton2 from '../SearchButton/searchButton2';
-import {connect} from 'react-redux';
-import * as actionCreators from '../../store/actions/actions';
+import SearchButton3 from '../SearchButton/searchButton3';
+
 
 class Home extends React.Component{
 
-    componentDidMount(){
-        this.props.onFetchData();
-      }  
+  
     render(){
 
     return(
-        <div className="container justify-content-center mt-5">
+        <div className="container justify-content-center mt-3">
             
             <h1 className="text-dark">Tu clínica digital estes donde estes</h1>
-            <p className="mb-5">Atencion por video consulta </p>
-            
-            <h3>Reserva tu cita ahora</h3>
-            <SearchButton2/>
-            {/*<SearchButton/>*/}
+            {/* <h5 className="mb-2">Atencion por video consulta </h5> */}
+            <h4>Reserva tu cita ahora</h4>
+
+            <SearchButton3/>
+
         </div>
     )}};
 
 
-const mapDispatchToProps = dispatch => {
-    return{
-        onFetchData: () => dispatch(actionCreators.fetchData()),
-    };
-};
+export default Home
 
-export default connect(null, mapDispatchToProps)(Home);
 
